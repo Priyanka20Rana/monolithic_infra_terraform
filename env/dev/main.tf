@@ -24,6 +24,14 @@ module "nic" {
 module "virtual_machine" {
   source     = "../../modules/azure_virtual_machine"
   vms        = var.vm
-nic_ids    = module.nic.nic_ids
-depends_on = [ module.nic ]
+  nic_ids    = module.nic.nic_ids
+  depends_on = [module.nic]
+}
+module "database" {
+  source              = "../../modules/azurerm_database"
+  db_server_name      = var.db_server_name
+  db                  = var.db
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
 }

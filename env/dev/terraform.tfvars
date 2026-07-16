@@ -46,7 +46,7 @@ nic = {
 
     }
   }
-    nic2 = {
+  nic2 = {
     name                = "backend-nic"
     resource_group_name = "dev-rg"
     location            = "central india"
@@ -57,7 +57,7 @@ nic = {
     }
 
   }
-  }
+}
 
 vm = {
   vm1 = {
@@ -66,7 +66,7 @@ vm = {
     location              = "central india"
     size                  = "Standard_D2s_v3"
     network_interface_ids = ["nic1"]
-    nic_key = "nic1"
+    nic_key               = "nic1"
   }
   vm2 = {
     name                  = "backend-vm"
@@ -74,6 +74,10 @@ vm = {
     location              = "central india"
     size                  = "Standard_D2s_v3"
     network_interface_ids = ["nic2"]
-    nic_key = "nic2"
+    nic_key               = "nic2"
   }
 }
+db_server_name      = "monolithic-db-server"
+db                  = "monolithic-db"
+resource_group_name = "dev-rg"
+location            = "central india"
