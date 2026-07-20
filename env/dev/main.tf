@@ -18,7 +18,8 @@ module "nic" {
   source     = "../../modules/azurerm_nic"
   nics       = var.nic
   subnet_ids = module.subnet-module.subnet_ids
-  depends_on = [module.subnet-module]
+  pip_ids    = module.pip.pip_ids
+  depends_on = [module.subnet-module, module.pip]
 
 }
 module "virtual_machine" {
@@ -27,11 +28,31 @@ module "virtual_machine" {
   nic_ids    = module.nic.nic_ids
   depends_on = [module.nic]
 }
+# module "database" {
+#   source              = "../../modules/azurerm_database"
+#   db_server_name      = var.db_server_name
+#   db                  = var.db
+#   resource_group_name = var.resource_group_name
+#   location            = var.location
+
+# }
 module "database" {
-  source              = "../../modules/azurerm_database"
-  db_server_name      = var.db_server_name
-  db                  = var.db
-  resource_group_name = var.resource_group_name
-  location            = var.location
+  source        = "../../modules/azurerm_database"
+  db_sql_server = var.db_sql_server
+  sql_db_mono   = var.sql_db_mono
+
+  depends_on = [module.rg-module]
+}
+module "pip" {
+  source     = "../../modules/azurerm_public_ip"
+  public_ip  = var.pips
+  depends_on = [module.rg-module]
+}
+module "nsg-rule" {
+  source = "../../modules/azurerm_nsg"
+  nsgs = var.nsgs
+  depends_on = [module.subnet-module]
+  subnet_ids = module.subnet-module.subnet_ids
+
 
 }

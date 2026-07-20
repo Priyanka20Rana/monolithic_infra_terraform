@@ -7,6 +7,7 @@ resource "azurerm_network_interface" "nic" {
   ip_configuration {
     name                          = "internal"
    subnet_id = var.subnet_ids[each.value.nic_configuration.subnet_key]
+   public_ip_address_id = var.pip_ids[each.value.nic_configuration.pip_key]
     private_ip_address_allocation = "Dynamic"
   }
 }

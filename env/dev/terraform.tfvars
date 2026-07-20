@@ -43,6 +43,7 @@ nic = {
     nic_configuration = {
 
       subnet_key = "subnet1"
+      pip_key    = "pip1"
 
     }
   }
@@ -53,6 +54,7 @@ nic = {
     nic_configuration = {
 
       subnet_key = "subnet2"
+      pip_key    = "pip2"
 
     }
 
@@ -77,7 +79,64 @@ vm = {
     nic_key               = "nic2"
   }
 }
-db_server_name      = "monolithic-db-server"
-db                  = "monolithic-db"
-resource_group_name = "dev-rg"
-location            = "central india"
+# db_server_name      = "monolithic-db-server"
+# db                  = "monolithic-db"
+# resource_group_name = "dev-rg"
+# location            = "central india"
+db_sql_server = {
+
+  server1 = {
+    name                = "dev-sql-server-32"
+    resource_group_name = "dev-rg"
+    location            = "Central India"
+  }
+
+  server2 = {
+    name                = "prod-sql-server-23"
+    resource_group_name = "dev-rg"
+    location            = "Central India"
+  }
+
+}
+
+sql_db_mono = {
+
+  db1 = {
+    name          = "EmployeeDB"
+    db_server_key = "server1"
+  }
+
+  db2 = {
+    name          = "SalesDB"
+    db_server_key = "server2"
+  }
+
+}
+pips = {
+  pip1 = {
+    name                = "frontend-pip"
+    resource_group_name = "dev-rg"
+    location            = "central india"
+  }
+  pip2 = {
+    name                = "backend-pip"
+    resource_group_name = "dev-rg"
+    location            = "central india"
+  }
+
+}
+nsgs = {
+  nsg1 = {
+    name = "frontend-nsg"
+    location = "central india"
+     resource_group_name  = "dev-rg"
+      subnet_key          = "subnet1"
+  }
+  nsg2 = {
+    name = "backend-nsg"
+    location = "central india"
+     resource_group_name  = "dev-rg"
+      subnet_key          = "subnet2"
+  }
+}
+
